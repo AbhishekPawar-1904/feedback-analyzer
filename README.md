@@ -1,111 +1,127 @@
-# 🧠 AI-Powered Customer Feedback Analyzer
+# 🧠 Customer Feedback Summarizer
 
-This is an MVP (Minimum Viable Product) of an AI-powered tool that helps product and support teams extract meaningful insights from customer feedback using OpenAI’s GPT model. Built with **Streamlit** for rapid prototyping and an intuitive dashboard experience.
+An AI-powered application built to automate customer feedback analysis using Python and the Gemini API. The project analyzes customer opinions, identifies sentiment, categorizes feedback, and generates concise summaries to help businesses understand customer needs more efficiently.
 
----
+## 🎯 Problem Statement
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+Businesses receive hundreds of customer feedback messages every day. Manually reading each message, identifying customer sentiment, categorizing issues, and preparing summaries requires time and effort.
 
----
+The Customer Feedback Summarizer aims to automate this process using Generative AI, making feedback easier to organize, understand, and analyze.
 
-## 🔍 Features
+## ✨ Key Features
 
-- 📁 Upload customer feedback via CSV
-- 🤖 Automatic **Sentiment Analysis** (Positive / Neutral / Negative)
-- 🏷️ Feedback **Categorization** (Bug, Feature Request, UX, Other)
-- 🧠 Summarized key issues using GPT
-- 📊 Interactive visual dashboard for quick insights
+- 📂 **Feedback Input:** Process customer feedback from CSV files or Google Sheets.
+- 😊 **Sentiment Analysis:** Identify feedback as Positive, Negative, or Neutral.
+- 🏷️ **Feedback Categorization:** Classify feedback into categories such as Product, Delivery, Support, and other relevant issues.
+- 🧠 **AI-Powered Summarization:** Generate concise summaries that capture the main point of customer feedback.
+- 💬 **Prompt Engineering:** Use structured prompts to guide the AI model toward consistent, relevant responses.
+- 📋 **Structured JSON Output:** Organize the AI-generated sentiment, category, and summary into separate fields.
+- 🛡️ **Error Handling:** Handle failed API requests and invalid or unexpected responses.
+- 📊 **Organized Results:** Store processed feedback and analysis in a structured format for easier review.
 
----
+## 🛠️ Tech Stack
 
+- **Programming Language:** Python
+- **Generative AI:** Google Gemini API
+- **Prompt Engineering:** Task-specific prompts for sentiment analysis, categorization, and summarization
+- **Data Input:** CSV files / Google Sheets
+- **Data Format:** JSON
+- **Data Processing:** Python
+- **Error Handling:** Exception handling and response validation
 
-## 🚀 Demo
+## 🔄 Project Workflow
 
-![App Demo](resources/demo-screenshot.png)
+1. **Input Feedback:** Read customer feedback from a CSV file or Google Sheets.
+2. **Data Processing:** Use Python to read and prepare the feedback records.
+3. **Prompt Construction:** Create instructions describing the sentiment, category, and summary required.
+4. **AI Analysis:** Send the prompt and feedback to the Gemini API.
+5. **Response Processing:** Receive the AI response and parse the structured JSON output.
+6. **Validation:** Check that the expected fields are present and handle invalid responses.
+7. **Output Storage:** Save the processed feedback, sentiment, category, and summary in a structured sheet.
 
-> Coming soon — you can run it locally using the instructions below.
+## 💡 Example
 
----
+**Input Feedback:**
 
-## 📦 Tech Stack
+"My product quality is excellent, but my order arrived three days late."
 
-- **Frontend & Dashboard:** [Streamlit](https://streamlit.io/)
-- **AI / NLP:** [OpenAI GPT-4 API](https://platform.openai.com/)
-- **Data Handling:** Pandas, Matplotlib
-- **Environment Config:** python-dotenv
-- **Unit testing framework:** pytest
+**Illustrative AI Output:**
 
----
+```json
+{
+  "sentiment": "Mixed",
+  "category": "Delivery",
+  "summary": "The customer liked the product quality but reported a delivery delay."
+}
+```
 
-## 🛠️ Setup Instructions
+The example illustrates the intended output structure. Actual classifications depend on the model response and the application's validation rules.
 
-### 1. Clone the Repo
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-git clone <repo-git-url>
+git clone https://github.com/AbhishekPawar-1904/feedback-analyzer.git
 cd feedback-analyzer
 ```
 
-### 2.Create and Activate Virtual Environment (Optional)
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### 3. Install dependencies
+Activate on Windows:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+### 3. Install Dependencies
+
+Install the dependencies listed in `requirements.txt`:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Set Up OpenAI API Key
+### 4. Configure the Gemini API Key
 
-Create a file named `.env` in the project root:
+Create a `.env` file in the project root:
 
 ```env
-OPENAI_API_KEY=your-api-key-here
+GEMINI_API_KEY=your-api-key-here
 ```
 
-⚠️ Do not commit this file. It’s already added to .gitignore.
+Keep your API key private and never upload the `.env` file to GitHub.
 
-### 5. Run the app
+### 5. Run the Application
+
+Run the Python entry point for your implementation. For example:
 
 ```bash
-streamlit run app/main.py
+python main.py
 ```
 
-### 📄 Input CSV Format
+Update this command to match the actual entry point in your project.
 
-To use this app, upload a **CSV file** that contains a column with user feedback.
+## 📈 Expected Benefits
 
-You can try it with the provided [example file](resources/sample_feedbacks.csv).
+- Reduces repetitive manual feedback analysis.
+- Organizes customer opinions into meaningful categories.
+- Helps identify recurring complaints and customer concerns.
+- Produces concise summaries for quicker review.
+- Demonstrates practical integration of Generative AI into a Python workflow.
 
-#### ✅ Required Column
+## 🔮 Future Enhancements
 
-- `feedback` (case-insensitive)
-  - This column should contain **free-text user comments** (e.g., complaints, suggestions, praise).
-  - The app will normalize the column name internally, so `Feedback`, `FEEDBACK`, or `feedBack` are all accepted.
-
-#### ⚠️ Validation Rules
-
-- The CSV must be readable (standard comma-separated file).
-- The file **must contain** a column named `"feedback"` (in any case).
-- The feedback column **must not be completely empty**.
-- CSVs missing the feedback column will trigger an error.
-
-### 6. Run tests
-
-```bash
-pytest tests/
-```
-
-
-## 🤖 AI Assistance Disclosure
-
-This project was developed with the assistance of AI tools, including [ChatGPT](https://openai.com/chatgpt) and [GitHub Copilot](https://github.com/features/copilot), to help generate code, refactor, and document the project. All code has been reviewed, refactored, and organized by the author.
-
----
+- Add an interactive dashboard for feedback trends.
+- Support batch processing of large feedback datasets.
+- Add more robust validation and retry handling for API failures.
+- Identify frequently reported issues across multiple feedback records.
+- Measure classification quality using a manually labeled test dataset.
 
 ## 📄 License
 
-This project is licensed under the [MIT License](./LICENSE).
+Refer to the repository's `LICENSE` file for licensing terms.
